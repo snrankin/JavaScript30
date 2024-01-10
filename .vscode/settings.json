@@ -1,0 +1,6 @@
+{
+	"conventionalCommits.scopes": [
+		"01 - JavaScript Drum Kit"
+	],
+	"prettier.proseWrap": "never"
+}
