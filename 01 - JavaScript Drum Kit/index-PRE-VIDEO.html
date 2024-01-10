@@ -60,27 +60,27 @@
     <audio data-key="76" src="sounds/tink.wav"></audio>
 
     <script>
-      window.addEventListener('keydown',(e) => {
+      function playSound(e) {
         var key=document.querySelector(`.key[data-key="${event.keyCode}"]`);
         var sound=document.querySelector(`audio[data-key="${event.keyCode}"]`);
-        if(key==undefined) {
+        if(sound==undefined) {
           return;
         }
 
         key.classList.add('playing');
-
+        sound.currentTime=0;
         sound.play();
-      })
+      }
 
-      window.addEventListener('keyup',(e) => {
-        var key=document.querySelector(`.key[data-key="${event.keyCode}"]`);
-        if(key==undefined) {
-          return;
-        }
+      function removeTransition(e) {
+        if(e.propertyName!=='transform') return;
+        e.target.classList.remove('playing');
+      }
 
-        key.classList.remove('playing');
+      const keys=document.getElementsByClassName('key');
+      keys.forEach(key => key.addEventListener('transitionend',removeTransition));
 
-      })
+      window.addEventListener("keydown",playSound);
     </script>
 
   </body>
