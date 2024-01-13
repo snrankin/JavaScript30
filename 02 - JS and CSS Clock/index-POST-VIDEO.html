@@ -13,9 +13,9 @@
 				<div class="clock-face">
 					<div class="clock-numbers"></div>
 					<div class="clock-hands">
-						<div class="hour-hand hand"></div>
-						<div class="min-hand hand"></div>
-						<div class="second-hand hand"></div>
+						<div class="hour-hand hand has-transition"></div>
+						<div class="min-hand hand has-transition"></div>
+						<div class="second-hand hand has-transition"></div>
 					</div>
 				</div>
 			</div>
@@ -187,6 +187,11 @@
 				top: 25%;
 				filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
 			}
+
+			.has-transition {
+				transition: all 0.05s;
+				transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+			}
 		</style>
 
 		<script>
@@ -207,6 +212,16 @@
 
 				let secondRotation=currentDate.getSeconds()*6;
 
+				if(secondRotation==0) {
+					if(secondHand.classList.contains('has-transition')) {
+						secondHand.classList.remove('has-transition')
+					}
+				} else {
+					if(!secondHand.classList.contains('has-transition')) {
+						secondHand.classList.add('has-transition')
+					}
+				}
+
 				secondHand.style.transform=`${initialTransform} rotate(${secondRotation}deg)`;
 			}
 
@@ -217,6 +232,16 @@
 
 				let minuteRotation=currentDate.getMinutes()*6;
 
+				if(minuteRotation==0) {
+					if(minuteHand.classList.contains('has-transition')) {
+						minuteHand.classList.remove('has-transition')
+					}
+				} else {
+					if(!minuteHand.classList.contains('has-transition')) {
+						minuteHand.classList.add('has-transition')
+					}
+				}
+
 				minuteHand.style.transform=`${initialTransform} rotate(${minuteRotation}deg)`;
 			}
 
@@ -226,6 +251,16 @@
 				}
 
 				let hourRotation=currentDate.getHours()*30;
+
+				if(hourRotation==0) {
+					if(hourHand.classList.contains('has-transition')) {
+						hourHand.classList.remove('has-transition')
+					}
+				} else {
+					if(!hourHand.classList.contains('has-transition')) {
+						hourHand.classList.add('has-transition')
+					}
+				}
 
 				hourHand.style.transform=`${initialTransform} rotate(${hourRotation}deg)`;
 			}
